@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チェックボックスの例</title>
+</head>
+<body>
+
+    <h2>好きなフルーツを選んでください:</h2>
+
+    <form action="/submit" method="post">
+        <input type="checkbox" id="apple" name="fruit" value="apple">
+        <label for="apple">りんご</label><br>
+
+        <input type="checkbox" id="orange" name="fruit" value="orange">
+        <label for="orange">オレンジ</label><br>
+
+        <input type="checkbox" id="banana" name="fruit" value="banana">
+        <label for="banana">バナナ</label><br>
+
+        <input type="submit" value="送信">
+    </form>
+
+</body>
+</html>
