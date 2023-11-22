@@ -9,22 +9,48 @@
 
     <h2>生成結果</h2>
 
-    {% for result in results %}
-        <li>{{ result }}</li>
-    {% endfor %}
-
     <form action="/submit" method="post">
-        <input type="checkbox" id="apple" name="fruit" value="apple">
-        <label for="apple">りんご</label><br>
-
-        <input type="checkbox" id="orange" name="fruit" value="orange">
-        <label for="orange">オレンジ</label><br>
-
-        <input type="checkbox" id="banana" name="fruit" value="banana">
-        <label for="banana">バナナ</label><br>
-
+        <table border="1">
+            <thead>
+            <tr>
+                <th>
+                    生成結果
+                </th>
+                <th>
+                    人間:男性名
+                </th>
+                <th>
+                    人間:女性名
+                </th>
+                <th>
+                    地名
+                </th>
+                <th>
+                    競走馬名
+                </th>
+                <th>
+                    モンスター名
+                </th>
+                <th>
+                    いずれでもない
+                </th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <th>{{ result }}</th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="male"></th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="female"></th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="land"></th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="horse"></th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="monster"></th>
+                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="none"></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <input type="submit" value="送信">
     </form>
-
 </body>
 </html>
