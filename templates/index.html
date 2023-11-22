@@ -40,12 +40,12 @@
                 {% for result in results %}
                     <tr>
                         <th>{{ result }}</th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="male"></th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="female"></th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="land"></th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="horse"></th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="monster"></th>
-                        <th><input type="checkbox" id="{{ result }}" name="aaaa" value="none"></th>
+                        <th><input type="checkbox" name="male" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="female" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="land" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="horse" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="monster" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="none" value="{{ result }}"></th>
                     </tr>
                 {% endfor %}
             </tbody>
