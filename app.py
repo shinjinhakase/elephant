@@ -19,8 +19,8 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    selected_fruits = request.form.getlist('fruit')
-    return f'選択されたフルーツ: {", ".join(selected_fruits)}'
+    selected = request.form
+    return f'{selected}'
 
 if __name__ == '__main__':
     app.run(debug=True)
