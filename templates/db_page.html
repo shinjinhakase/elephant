@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn-Generate</title>
+</head>
+<body>
+
+    <h2>生成結果</h2>
+
+    <form action="/gb_sub" method="post">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>
+                    生成結果
+                </th>
+                <th>
+                    GOOD
+                </th>
+                <th>
+                    BAD
+                </th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <th>{{ result }}</th>
+                        <th><input type="checkbox" name="good" value="{{ result }}"></th>
+                        <th><input type="checkbox" name="bad" value="{{ result }}"></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="送信">
+    </form>
+</body>
+</html>
