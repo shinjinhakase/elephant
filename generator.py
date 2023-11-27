@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 class Generator:
 
@@ -36,12 +37,17 @@ class Generator:
             "ャ", "ュ", "ョ"
         ]
 
-    def generate(self):
-        length = random.randint(2, 10)
+    def generate(self,length=random.randint(2,10)):
         name = ""
         for i in range(length):
             name += self.char_list[random.randint(0, len(self.char_list) - 1)]
         return name
+
+    def generate_list(self,length=random.randint(2,10),request_amount=10):
+        name_list = []
+        for i in range(request_amount):
+            name_list.append(self.generate(length))
+        return name_list
 
     def char_split(self,name):
         split_name = list(name)
@@ -57,11 +63,17 @@ class Generator:
         answer.reverse()
         return answer
 
-    def vectorize(self,name):
+    def vectorize(self,name,requested_size):
         vectorized_name = []
         split_name = self.char_split(name)
         for letter in split_name:
             vectorized_name.append(self.char_list.index(letter))
-        while len(vectorized_name) < 10:
+        while len(vectorized_name) < requested_size:
             vectorized_name.append(0)
         return vectorized_name
+
+    def vectorize_nparray(self,name_list,requested_size):
+        vec_list = []
+        for name in name_list:
+            vec_list.append(self.vectorize(name,requested_size))
+        return np.array(vec_list)
