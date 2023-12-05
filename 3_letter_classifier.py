@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split
 
-csv_files_path = 'C:/Users/shinj/Documents/Develop_Python/elephant/data/2let_gb_data/*.csv'
-df = pd.DataFrame(columns=["name","good","bad"])
+csv_files_path = 'C:/Users/shinj/Documents/Develop_Python/elephant/data/3letter_data/*.csv'
+df = pd.DataFrame(columns=["name","male","female","land","horse","monster","none"])
 for csv_path in glob.glob(csv_files_path):
     read_new_df = pd.read_csv(csv_path)
     print("loaded {0}".format(csv_path))
@@ -18,7 +18,7 @@ name_list = df['name']
 get_data = []
 gen = Generator()
 for name in name_list:
-    vectorized_name = gen.vectorize(name,2)
+    vectorized_name = gen.vectorize(name,3)
     get_data.append(vectorized_name)
 input_data = np.array(get_data,dtype='float32')
 print(input_data)
@@ -28,9 +28,9 @@ print(output_data)
 
 # ニューラルネットワークのモデル構築
 model = models.Sequential()
-model.add(layers.Dense(64, activation='relu', input_shape=(2,)))
+model.add(layers.Dense(64, activation='relu', input_shape=(3,)))
 model.add(layers.Dense(32, activation='relu'))
-model.add(layers.Dense(2, activation='softmax'))
+model.add(layers.Dense(6, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
@@ -44,6 +44,6 @@ plt.xlabel('Epoch')
 plt.legend()
 plt.show()
 
-save_model_path = 'C:/Users/shinj/Documents/Develop_Python/elephant/2let_gb_model'
+save_model_path = 'C:/Users/shinj/Documents/Develop_Python/elephant/3letter_model'
 model.save(save_model_path)
 print("model save completed!")

@@ -5,15 +5,12 @@ import csv
 from io import StringIO
 
 app = Flask(__name__)
-
-
+AMOUNT = 100
+LENGTH = 2
 category = ["male","female","land","horse","monster","none"]
 
 def generate(length):
     gen = Generator()
-    results = []
-    for i in range(length):
-        results.append(gen.generate())
     return results
 
 def one_hot_vector(set_category):
@@ -36,43 +33,52 @@ def form_to_csv(form):
             data.append(row)
     return data
 
-LENGTH = 100
+def form_to_csv_gb(form):
+    data = []
+    for g in form.getlist("good"):
+        data.append([g,1,0])
+    for b in form.getlist("bad"):
+        data.append([b,0,1])
+    return data
 
 @app.route('/')
 def index():
-    results = generate(LENGTH)
-    return render_template('index.html', results=results)
+    # gen = Generator()
+    # results = gen.generate_list(LENGTH, AMOUNT)
+    # return render_template('index.html', results=results)
+    return "ROUTE"
 
 @app.route('/elim_none')
 def elim_none():
     cla = Classifier()
-    results = cla.generate(LENGTH)
+    results = cla.generate(AMOUNT)
     return render_template('index.html', results=results)
 
 @app.route('/hunt')
 def hunt():
     cla = Classifier()
-    results = cla.treasure(LENGTH)
+    results = cla.treasure(AMOUNT)
     return render_template('index.html', results=results)
-
 
 @app.route('/gb')
 def good_bad():
-    results = generate(LENGTH)
+    cla = Classifier(str(LENGTH) + 'let_gb_model')
+    results = cla.generate_for_more_learn()
     return render_template('gb_page.html', results=results)
 
-@app.route('/gb_sub')
-def gb_submit():
-    data = ["name","good","bad"]
-    data.extend(form_to_csv(request.form))
+@app.route('/gb_sub', methods=['POST'])
+def gb_sub():
+    data = [["name","good","bad"]]
+    data.extend(form_to_csv_gb(request.form))
     csv_data = StringIO()
     csv_writer = csv.writer(csv_data)
     csv_writer.writerows(data)
     response = Response(
         csv_data.getvalue(),
         content_type='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=data.csv'}
+        headers={'Content-Disposition': 'attachment; filename=2let_gb_data.csv'}
     )
+    return response
 
 @app.route('/submit', methods=['POST'])
 def submit():
