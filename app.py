@@ -63,6 +63,12 @@ def good_bad():
     results = cla.generate_for_more_learn()
     return render_template('gb_page.html', results=results)
 
+@app.route('/gb_sort')
+def gb_sort():
+    cla = Classifier("2let_gb_model")
+    results = cla.generate_for_more_learn(sort_flag=True)
+    return render_template('gb_sort.html', results=results)
+
 @app.route('/gb_sub', methods=['POST'])
 def gb_sub():
     data = [["name","good","bad"]]
