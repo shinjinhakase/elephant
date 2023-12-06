@@ -31,7 +31,7 @@ class Classifier:
             print(str(len(name_list)) + "/" + str(generate_times))
         return name_list
 
-    def generate_for_more_learn(self,amount=100,length=2,cate=["good","bad"]):
+    def generate_for_more_learn(self,amount=100,length=2,cate=["good","bad"],sort_flag=False):
         # 後で他カテゴリーにも対応する
         gen = Generator()
         result = []
@@ -41,9 +41,11 @@ class Classifier:
             predictions = self.model.predict(vectorized_list)
             for i in range(len(predictions)):
                 if predictions[i][0] > predictions[i][1]:
-                    result.append([before_judge[i],cate[0]])
+                    result.append([before_judge[i],cate[0],round(predictions[i][0] * 100)])
                 else:
-                    result.append([before_judge[i],cate[1]])
+                    result.append([before_judge[i],cate[1],round(predictions[i][0] * 100)])
+        if sort_flag:
+            return sorted(result,key=lambda x: x[2],reverse=True)
         return result
 
     def treasure(self,generate_times=30,length=2,arrow_rate=0.7):
