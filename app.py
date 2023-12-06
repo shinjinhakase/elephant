@@ -43,10 +43,7 @@ def form_to_csv_gb(form):
 
 @app.route('/')
 def index():
-    # gen = Generator()
-    # results = gen.generate_list(LENGTH, AMOUNT)
-    # return render_template('index.html', results=results)
-    return "ROUTE"
+    return render_template('home.html')
 
 @app.route('/elim_none')
 def elim_none():
@@ -62,7 +59,7 @@ def hunt():
 
 @app.route('/gb')
 def good_bad():
-    cla = Classifier(str(LENGTH) + 'let_gb_model')
+    cla = Classifier("2let_gb_model")
     results = cla.generate_for_more_learn()
     return render_template('gb_page.html', results=results)
 
