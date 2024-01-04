@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, Response
 from generator import Generator
 from classifier import Classifier
+from coloc_predictor import ColocPredictor
 import csv
 from io import StringIO
 
@@ -45,6 +46,18 @@ def form_to_csv_gb(form):
 def index():
     return render_template('home.html')
 
+@app.route('/coloc')
+def coloc():
+    gen = Generator()
+    results = gen.generate_list(length_limit=2,request_amount=AMOUNT)
+    return render_template('coloc.html', results=results)
+
+@app.route('/coloc_sort')
+def coloc_sort():
+    pred = ColocPredictor()
+    results = pred.generate_sort(length_limit=2,amount=AMOUNT)
+    return render_template('coloc_sort.html',results=results)
+
 @app.route('/elim_none')
 def elim_none():
     cla = Classifier()
@@ -79,7 +92,7 @@ def gb_sub():
     response = Response(
         csv_data.getvalue(),
         content_type='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=2let_gb_data.csv'}
+        headers={'Content-Disposition': 'attachment; filename=coloc_gb_data.csv'}
     )
     return response
 

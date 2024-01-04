@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn-Generate</title>
+</head>
+<body>
+    <h2>生成結果</h2>
+    <form action="/gb_sub" method="post">
+        <table border="1">
+            <thead>
+                <th>
+                    生成結果
+                </th>
+                <th>
+                    GOOD
+                </th>
+                <th>
+                    BAD
+                </th>
+                <th>
+                    ビバ良くない？
+                </th>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <th>
+                            {{ result[0] }}
+                        </th>
+                        <th>
+                            {% if result[1] == "good" %}
+                                <input type="checkbox" name="good" value="{{ result[0] }}" checked=”checked”>
+                            {% else %}
+                                <input type="checkbox" name="good" value="{{ result[0] }}">
+                            {% endif %}
+                        </th>
+                        <th>
+                            {% if result[1] == "bad" %}
+                                <input type="checkbox" name="bad" value="{{ result[0] }}" checked=”checked”>
+                            {% else %}
+                                <input type="checkbox" name="bad" value="{{ result[0] }}">
+                            {% endif %}
+                        </th>
+                        <th>
+                            {{ result[2]|string + "%" }}
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="データを出力">
+    </form>
+</body>
+</html>
